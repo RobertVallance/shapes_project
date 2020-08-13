@@ -12,11 +12,11 @@
 // tests a number is correct input
 template <class T> T input_and_test_number();
 
-// returns the current attributes
-const int current_attributes();
+// returns the current attributes - WINDOWS ONLY
+// const int current_attributes();
 
-// sets text colour
-void set_text_colour(int number_sides);
+// sets text colour - WINDOWS ONLY
+// void set_text_colour(int number_sides);
 
 // tests whether an input string is "y" or "n"
 bool test_yes_or_no();

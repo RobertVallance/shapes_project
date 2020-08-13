@@ -8,7 +8,7 @@
 #include <cmath>
 #include <map>
 #include <algorithm>
-#include <windows.h>
+//#include <windows.h> - WINDOWS ONLY
 
 using namespace std;
 
@@ -17,9 +17,6 @@ namespace polygonSpace
 	// Abstract base class for general polygon
 	class Polygon
 	{	
-		// Friend functions for overloading input and output operators
-		friend ostream & operator<<(ostream &os, const polygonSpace::Polygon &poly);
-		friend istream & operator>>(istream &is, polygonSpace::Polygon &poly);
 
 	protected:
 		// member variables common to all shapes
@@ -55,6 +52,12 @@ namespace polygonSpace
 
 		// Function to ensure shape not self-interesecting by ordering the points clockwise
 		void sort_points_clockwise();
+
+		// Friend functions for overloading input and output operators
+		friend ostream & operator<<(ostream &os, const polygonSpace::Polygon &poly);
+		friend istream & operator>>(istream &is, polygonSpace::Polygon &poly);
+
+
 
 
 	};

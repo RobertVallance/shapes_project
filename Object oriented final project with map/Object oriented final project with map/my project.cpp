@@ -55,13 +55,13 @@ int main()
 	polygon_shape_map::iterator shapesIt;
 	for (shapesIt = polygon_map.begin(); shapesIt != polygon_map.end(); ++shapesIt)
 	{
-		// save current text colour (white on black bgd)
-		int default_attributes = current_attributes();
+		// save current text colour (white on black bgd) - ONLY WORKS ON WINDOWS
+		//int default_attributes = current_attributes();
 
 		cout << "\nShape name: ";
-		set_text_colour(shapesIt->second->get_number_sides());							// Now match text colour with shape colour
-		cout << shapesIt->first << endl << *shapesIt->second << endl;					// Print out shapes (names and their data)
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), default_attributes);	// Return text back to white on black bgd
+		//set_text_colour(shapesIt->second->get_number_sides());			// Now match text colour with shape colour - WINDOWS ONLY
+		cout << shapesIt->first << endl << *shapesIt->second << endl;			// Print out shapes (names and their data)
+		//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), default_attributes);	// Return text back to white on black bgd - WINDOWS ONLY
 	}
 	
 
@@ -108,7 +108,7 @@ int main()
 	cout << "THANK YOU FOR USING THE SHAPE EDITOR.\n\n";
 
 	// Stop command prompt from closing at end
-	system("pause");
+	// system("pause");
 
 	return 0;
 }

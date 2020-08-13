@@ -61,16 +61,19 @@ bool test_yes_or_no()
 }
 
 
-// returns the current attributes
+// returns the current attributes - WINDOWS ONLY
+/*
 const int current_attributes()
 {
 	CONSOLE_SCREEN_BUFFER_INFO current_buffer_data;
 	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &current_buffer_data);
 	return current_buffer_data.wAttributes;
 }
+*/
 
 
-// Function to set text colour (dependent on shape type (number sides))
+// Function to set text colour (dependent on shape type (number sides)) - ONLY WORKS ON WINDOWS
+/*
 void set_text_colour(int number_sides)
 {
 	
@@ -101,7 +104,7 @@ void set_text_colour(int number_sides)
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 	}
 }
-
+*/
 
 // Function that returns a map of added shapes.  User specifies tpye of shape and shape parameters.
 map<string, polygonSpace::Polygon*> add_shape(map<string, polygonSpace::Polygon*> &polygon_map)
@@ -320,16 +323,17 @@ map<string, polygonSpace::Polygon*> play_with_shape(map<string, polygonSpace::Po
 	cout << "Please type in the name of the shape you would like to edit.\n";
 	cout << "Options are: ";
 	
-	// save current text colour (white on black bgd)
-	int default_attributes = current_attributes();
+	// save current text colour (white on black bgd) - WINDOWS ONLY
+	//int default_attributes = current_attributes();
 
 	// Print out the shape names (using iterator over key names in map) so the user can decide
 	for (auto shapesIt = polygon_map.begin(); shapesIt != polygon_map.end(); ++shapesIt)
 	{
 		if (shapesIt != polygon_map.begin() && shapesIt != polygon_map.end()) cout << ", ";
-		set_text_colour(shapesIt->second->get_number_sides());	// sets text colour to match shape colour
+		// REMOVED AS ONLY WORKS WITH WINDOWS
+		//set_text_colour(shapesIt->second->get_number_sides());	// sets text colour to match shape colour
 		cout << shapesIt->first;
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), default_attributes);		// returns to white text on black bgd
+		//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), default_attributes);		// returns to white text on black bgd - WINDOWS ONLY
 	}
 	cout << endl;
 

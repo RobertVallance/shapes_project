@@ -2,55 +2,58 @@
 #include "other functions.h"
 
 
-
-// Overload insertion to output stream for vertices
-ostream & polygonSpace::operator<<(ostream &os, const polygonSpace::Polygon &poly)
+namespace polygonSpace
 {
-	poly.get_coordinates();
-	return os;
-}
+
+  // Overload insertion to output stream for vertices
+  ostream & operator<<(ostream &os, const polygonSpace::Polygon &poly)
+  {
+    poly.get_coordinates();
+    return os;
+  }
 
 
 
-// Overload istream so can input vertices during run-time
-istream & polygonSpace::operator>>(istream &is, polygonSpace::Polygon &poly)
-{
-	is.clear();	// clears istream
+  // Overload istream so can input vertices during run-time
+  istream & operator>>(istream &is, polygonSpace::Polygon &poly)
+  {
+    is.clear();	// clears istream
 
-	vector<double> coordinates;
-	double temp_coordinate;
-	//bool input_again;
-	int vertex_number{ 1 };
+    vector<double> coordinates;
+    double temp_coordinate;
+    //bool input_again;
+    int vertex_number{ 1 };
 	
-	// Iterate over number sides so user inputs vertices
-	for (int i{ 0 }; i < poly.number_sides*2; i+=2)
-	{
+    // Iterate over number sides so user inputs vertices
+    for (int i{ 0 }; i < poly.number_sides*2; i+=2)
+      {
 
-		// Put in x co-ordinate of vertex number (and check valid input)
-		cout << "Please type in coordinate x" << vertex_number << ": ";
-		temp_coordinate = input_and_test_number<double>();
-		coordinates.push_back(temp_coordinate);
+	// Put in x co-ordinate of vertex number (and check valid input)
+	cout << "Please type in coordinate x" << vertex_number << ": ";
+	temp_coordinate = input_and_test_number<double>();
+	coordinates.push_back(temp_coordinate);
 		
-		// Put in y co-ordinate of vertex number (and check valid input)
-		cout << "Please type in coordinate y" << vertex_number << ": ";
-		temp_coordinate = input_and_test_number<double>();
-		coordinates.push_back(temp_coordinate);	
+	// Put in y co-ordinate of vertex number (and check valid input)
+	cout << "Please type in coordinate y" << vertex_number << ": ";
+	temp_coordinate = input_and_test_number<double>();
+	coordinates.push_back(temp_coordinate);	
 		
-		// Go to next vertex
-		vertex_number++;
+	// Go to next vertex
+	vertex_number++;
 	
-	}
+      }
 
 
-	// Put these co-odinates into our object and print them out
-	poly.put_in_coordinates(coordinates);
-	cout << poly;
+    // Put these co-odinates into our object and print them out
+    poly.put_in_coordinates(coordinates);
+    cout << poly;
 
-	return is;
+    return is;
+
+  }
 
 }
-
-
+ 
 // Define static data member
 int polygonSpace::Polygon::number_polygons{ 0 };
 
@@ -125,13 +128,13 @@ double polygonSpace::Polygon::get_area()
 void polygonSpace::Polygon::get_coordinates() const
 {
 
-	// save current text colour (white on black bgd)
-	int default_attributes = current_attributes();
+	// save current text colour (white on black bgd) - WINDOWS ONLY
+	// int default_attributes = current_attributes();
 	
 	cout << "Co-ordinates are:\n";
 	
 	// choose text colour depending on number of shape sides
-	set_text_colour(number_sides);
+	// set_text_colour(number_sides); - ONLY WORKS ON WINDOWS
 	
 	// Print out co-ordinates
 	for (int i{ 0 }; i < number_sides; i++)
@@ -139,8 +142,8 @@ void polygonSpace::Polygon::get_coordinates() const
 		cout << "(x" << i+1 << ", y" << i+1 << ") = (" << x_coordinates[i] << ", " << y_coordinates[i] << ")\n";
 	}
 
-	// Return text colour back to white on black bgd
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), default_attributes);
+	// Return text colour back to white on black bgd - ONLY WORKA ON WINDOWS
+	//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), default_attributes);
 }
 
 
@@ -150,11 +153,11 @@ void polygonSpace::Polygon::get_coordinates() const
 void polygonSpace::Polygon::get_info()
 {
 	
-	// save current text colour (white on black bgd)
-	int default_attributes = current_attributes();
+	// save current text colour (white on black bgd) - WINDOWS ONLY
+	//int default_attributes = current_attributes();
 
-	// choose text colour depending on number of shape sides
-	set_text_colour(number_sides);
+	// choose text colour depending on number of shape sides - WINDOWS ONLY
+	// set_text_colour(number_sides);
 
 	// Print out shape name
 	cout << "\nShape name is: " << polygon_name << endl;
@@ -172,8 +175,8 @@ void polygonSpace::Polygon::get_info()
 	cout << "\nArea of shape is " << get_area() << endl;
 	cout << "(area valid if not self-intersecting - use Sort Points Clockwise option otherwise)" << endl;
 
-	// Return text colour back to white on black bgd
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), default_attributes);
+	// Return text colour back to white on black bgd - ONLY WORKS ON WINDOWS
+	//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), default_attributes);
 
 	// Print out total number of polygons we have
 	cout << "\nThis is 1 of " << number_polygons << " polygons" << endl;
